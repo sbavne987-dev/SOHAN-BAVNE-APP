@@ -4,11 +4,13 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:allowBackup="false"
-        android:usesCleartextTraffic="false"
-        android:label="SOHAN BAVNE"
-        android:theme="@android:style/Theme.Material.Light.NoActionBar"
-        android:supportsRtl="true">
+    android:allowBackup="false"
+    android:usesCleartextTraffic="false"
+    android:label="SOHAN BAVNE"
+    android:icon="@drawable/sb_logo"
+    android:roundIcon="@drawable/sb_logo"
+    android:theme="@android:style/Theme.Material.Light.NoActionBar"
+    android:supportsRtl="true">
 
         <activity
             android:name=".MainActivity"
