@@ -9,6 +9,9 @@ import android.webkit.WebChromeClient
 import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
+import android.os.Build
+import android.view.View
+import android.view.Window
 
 class MainActivity : Activity() {
 
@@ -23,6 +26,13 @@ class MainActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+    // Android 12+ में सिस्टम Splash Screen इस्तेमाल होगी।
+} else {
+    window.setBackgroundDrawableResource(
+        R.drawable.splash_background
+    )
+}
         webView = WebView(this)
 
         webView.settings.apply {
