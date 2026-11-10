@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="#020B1D" />
+
+    <item>
+        <bitmap
+            android:src="@drawable/sb_logo"
+            android:gravity="center"
+            android:filter="true" />
+    </item>
+
+</layer-list>
