@@ -39,12 +39,32 @@ jobs:
           sdkmanager --install "platforms;android-35"
           sdkmanager --install "build-tools;35.0.0"
 
-      - name: Build Debug APK
-        run: gradle --no-daemon assembleDebug
+      - name: Prepare Release Signing Key
+        env:
+          RELEASE_KEYSTORE_BASE64: ${{ secrets.RELEASE_KEYSTORE_BASE64 }}
+        run: |
+          echo "$RELEASE_KEYSTORE_BASE64" | base64 --decode > app/release-key.jks
+          test -s app/release-key.jks
 
-      - name: Upload APK
+      - name: Build Debug and Signed Release APK
+        env:
+          RELEASE_KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
+          RELEASE_KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
+          RELEASE_KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD }}
+        run: |
+          gradle --no-daemon assembleDebug assembleRelease
+          rm -f app/release-key.jks
+
+      - name: Upload Debug APK
         uses: actions/upload-artifact@v4
         with:
           name: SOHAN-BAVNE-debug-APK
           path: app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+
+      - name: Upload Signed Release APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: SOHAN-BAVNE-signed-release-APK
+          path: app/build/outputs/apk/release/app-release.apk
           if-no-files-found: error
